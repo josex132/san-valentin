@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Mi Amorcito - San Valentín</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --rosa:#ff5c8a;
+      --rosa-osc:#e84e7a;
+      --fucsia:#ff2e63;
+      --morado:#7a4cff;
+      --dorado:#ffd166;
+      --fondo:#0f0c29;
+      --fondo2:#302b63;
+      --fondo3:#24243e;
+      --blanco:#ffffff;
+      --negro:#0b0b0b;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--blanco);
+      background: radial-gradient(1200px 600px at 70% -10%, rgba(255,46,99,.25), transparent 60%),
+                  radial-gradient(1000px 500px at -10% 110%, rgba(122,76,255,.2), transparent 60%),
+                  linear-gradient(135deg, var(--fondo), var(--fondo2) 50%, var(--fondo3));
+      overflow-x:hidden;
+    }
+
+    /* Fondo con corazones flotando */
+    .hearts-bg{
+      position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0;
+    }
+    .heart{
+      position:absolute; width:14px; height:14px; transform:rotate(45deg);
+      background:linear-gradient(135deg, var(--rosa), var(--fucsia));
+      animation: floatUp linear infinite;
+      box-shadow:0 0 12px rgba(255,94,143,.6);
+    }
+    .heart::before, .heart::after{
+      content:""; position:absolute; width:14px; height:14px; border-radius:50%;
+      background:inherit; box-shadow:inherit;
+    }
+    .heart::before{ left:-7px; }
+    .heart::after{ top:-7px; }
+    @keyframes floatUp{
+      0%{ transform:translateY(0) rotate(45deg) scale(.8); opacity:.0; }
+      10%{ opacity:.9; }
+      100%{ transform:translateY(-120vh) rotate(45deg) scale(1.2); opacity:0; }
+    }
+
+    header{
+      position:relative; z-index:2; text-align:center; padding:60px 20px 20px;
+    }
+    .titulo{
+      font-family:'Great Vibes', cursive; font-size:56px; line-height:1.1; margin:0 0 10px;
+      text-shadow:0 3px 18px rgba(255,46,99,.45), 0 0 24px rgba(122,76,255,.25);
+    }
+    .sub{
+      font-weight:300; letter-spacing:.5px; color:rgba(255,255,255,.9);
+    }
+
+    .container{
+      position:relative; z-index:2; max-width:1080px; margin:0 auto; padding:24px; display:grid; gap:24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* Tarjetas */
+    .card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(6px);
+      border-radius:18px; padding:22px; position:relative; overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.04);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 16px 50px rgba(0,0,0,.35); }
+    .card h3{ margin:0 0 10px; font-weight:700; font-size:20px; letter-spacing:.3px; }
+    .card p{ margin:0; opacity:.95; }
+
+    .badge{
+      position:absolute; right:14px; top:14px; font-size:12px; padding:6px 10px; border-radius:999px;
+      background:linear-gradient(135deg, rgba(255,46,99,.22), rgba(122,76,255,.22)); border:1px solid rgba(255,255,255,.2);
+    }
+
+    /* Carta con tipeo */
+    .paper{
+      grid-column: 1 / -1; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
+      padding:28px 24px 24px; border-radius:20px; position:relative; overflow:hidden;
+    }
+    .paper::before{
+      content:""; position:absolute; inset:0; background:
+        repeating-linear-gradient(180deg, rgba(255,255,255,.06) 0 28px, rgba(255,94,143,.16) 29px 30px);
+      pointer-events:none; border-radius:inherit;
+    }
+    .paper h2{ margin:0 0 12px; font-size:26px; }
+    .type{
+      font-size:18px; line-height:1.8; white-space:pre-wrap; min-height:160px;
+      text-shadow:0 1px 0 rgba(0,0,0,.25);
+    }
+    .cursor{ display:inline-block; width:10px; background:rgba(255,255,255,.9); animation:blink 1s step-end infinite; }
+    @keyframes blink{ 50%{ background:transparent; } }
+
+    /* Botones */
+    .actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+    .btn{
+      appearance:none; border:none; cursor:pointer; padding:12px 18px; border-radius:14px;
+      background:linear-gradient(135deg, var(--rosa), var(--morado)); color:#fff; font-weight:700; letter-spacing:.3px;
+      box-shadow:0 8px 24px rgba(255,46,99,.3);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 34px rgba(122,76,255,.35); filter:saturate(1.15); }
+    .btn.alt{ background:linear-gradient(135deg, #ffd166, #ff8a00); color:#1a1a1a; box-shadow:0 8px 24px rgba(255,168,0,.34); }
+    .btn.ghost{ background:transparent; border:1px solid rgba(255,255,255,.28); box-shadow:none; }
+
+    /* Carrusel de fotos corazones */
+    .gallery{
+      grid-column: 1 / -1; display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px;
+    }
+    .photo{
+      position:relative; padding-top:120%; border-radius:22px; overflow:hidden; background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12); box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:contrast(1.05) saturate(1.1); }
+    .photo::after{
+      content:""; position:absolute; inset:0; background: radial-gradient(ellipse at 80% 10%, rgba(255,255,255,.15), transparent 50%);
+    }
+
+    /* Footer */
+    footer{ text-align:center; padding:28px 16px 60px; color:rgba(255,255,255,.85); }
+    .firma{ font-family:'Great Vibes', cursive; font-size:34px; color:#ffd1e1; text-shadow:0 2px 10px rgba(255,46,99,.35); }
+
+    /* Pop modal */
+    .modal{ position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.55); z-index:99; }
+    .modal.active{ display:grid; }
+    .modal-card{ width:min(720px, 92vw); background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.22); border-radius:18px; padding:18px; overflow:hidden; }
+    .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:6px 10px 12px; }
+    .modal-title{ font-weight:700; letter-spacing:.35px; }
+    .close{ background:transparent; border:1px solid rgba(255,255,255,.3); color:#fff; border-radius:10px; padding:6px 10px; cursor:pointer; }
+    .modal-body{ max-height:60vh; overflow:auto; padding:8px 2px 10px; }
+
+    /* Confeti */
+    canvas#confetti{ position:fixed; inset:0; pointer-events:none; z-index:50; }
+
+    /* Nota adhesiva */
+    .sticky{
+      background: #fffadd; color:#3b2e2e; border-radius:14px; padding:16px; transform:rotate(-2deg);
+      box-shadow:0 12px 26px rgba(0,0,0,.25); border:1px solid rgba(0,0,0,.08);
+    }
+
+    /* Responsive header sizes */
+    @media (max-width:600px){
+      .titulo{ font-size:42px; }
+      .paper .type{ font-size:17px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" id="hearts"></div>
+  <canvas id="confetti"></canvas>
+
+  <header>
+    <h1 class="titulo">Feliz San Valentín, mi amorcito</h1>
+    <p class="sub">Un detalle hecho con todo mi corazón, para ti que eres mi universo.</p>
+  </header>
+
+  <main class="container">
+    <section class="paper card">
+      <span class="badge">Carta</span>
+      <h2>Querida mía</h2>
+      <div class="type" id="type"></div>
+      <div class="actions">
+        <button class="btn" id="btnPlay">Reproducir carta</button>
+        <button class="btn ghost" id="btnPause">Pausar</button>
+        <button class="btn alt" id="btnSurprise">Sorpresa</button>
+      </div>
+    </section>
+
+    <section class="card sticky">
+      <h3>Para que recuerdes siempre</h3>
+      <p>
+        - Eres mi lugar seguro, mi alegría diaria, y el abrazo que le da paz a mi alma.
+        <br>- Cuando sonríes, el mundo se ilumina un poco más.
+        <br>- Soy tan afortunado de caminar la vida a tu lado.
+      </p>
+    </section>
+
+    <section class="card">
+      <span class="badge">Promesa</span>
+      <h3>Mi promesa</h3>
+      <p>Te cuidaré, te respetaré y te elegiré cada día. Seré tu compañero de aventuras,
+         tu apoyo en lo difícil y tu risa en lo bonito. Siempre tú.</p>
+    </section>
+
+    <section class="card">
+      <span class="badge">Razones</span>
+      <h3>Razones por las que te amo</h3>
+      <ul>
+        <li>Tu corazón inmenso y noble.</li>
+        <li>La forma en que escuchas y abrazas con el alma.</li>
+        <li>Tu risa que me cura los días grises.</li>
+        <li>Tu valentía para seguir soñando.</li>
+        <li>Porque a tu lado todo tiene sentido.</li>
+      </ul>
+    </section>
+
+    <section class="san valentin"></section>
+  <div class="photo">
+    <img src="san-valentin/imgosito1.jpg" alt="Ositos beso"/>
+  </div>
+  
+  <div class="photo">
+    <img src="san-valentin/imgosito2.jpg" alt="Ositos abrazo"/>
+  </div>
+
+  <div class="photo">
+    <img src="san-valentin/imgosito3.jpg" alt="Ositos espalda"/>
+  </div>
+
+  <div class="photo">
+    <img src="san-valentin/imgosito.jpg" alt="Ositos corazón"/>
+  </div>
+</section>
+
+
+    <section class="card" style="grid-column:1 / -1;">
+      <span class="badge">Pequeño poema</span>
+      <h3>Mi universo</h3>
+      <p>
+        Si el tiempo me pidiera elegir un segundo,<br>
+        elegiría cualquiera donde estés tú.<br>
+        Porque en tus ojos encuentro hogar,<br>
+        y en tu risa, la música que quiero escuchar por siempre.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="firma">Con todo mi amor, para ti. ❤️</div>
+  </footer>
+
+  <!-- Modal con frases exactas solicitadas -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">Para mi cielo</div>
+        <button class="close" id="closeModal">Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <div class="card" style="margin:8px 0;">
+          <h3>Frases especiales</h3>
+          <p style="font-size:18px; line-height:1.9; white-space:pre-line">
+"eresh muy especial pala mi mami"
+" mi amor pol ti esh mash grande que el universho"
+" yio te dare todo mi amor pol el resto de mi vida mi amorchito"
+          </p>
+        </div>
+        <div class="card" style="margin:8px 0;">
+          <h3>Un abrazo que nunca se olvida</h3>
+          <p>Guarda esta página. Cada vez que la abras, te recordaré que eres lo mejor que me pudo pasar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgm" preload="auto" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_6b0d6f7c77.mp3?filename=romantic-ambient-110401.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Generar corazones flotantes
+    (function hearts(){
+      const wrap = document.getElementById('hearts');
+      const W = () => window.innerWidth;
+      const H = () => window.innerHeight;
+      function spawn(){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        const size = 10 + Math.random()*18;
+        h.style.width = size+'px';
+        h.style.height = size+'px';
+        h.style.left = Math.random() * (W()-size) + 'px';
+        const dur = 8 + Math.random()*12;
+        h.style.animationDuration = dur+'s';
+        h.style.opacity = 0;
+        wrap.appendChild(h);
+        setTimeout(()=>{ h.remove(); }, (dur*1000)+200);
+      }
+      for(let i=0;i<24;i++) spawn();
+      setInterval(spawn, 420);
+    })();
+
+    // Maquina de escribir para la carta
+    const texto = `Amorcito mío:
+Hoy quiero dejar en estas líneas una parte de mi corazón.
+Gracias por ser luz, por ser abrigo, por ser mi alegría.
+
+Quiero recordarte tres cosas muy especiales, tal y como te las digo a mi manera:
+
+- "eresh muy especial pala mi mami"
+- " mi amor pol ti esh mash grande que el universho"
+- " yio te adare todo mi amor pol el resto de mi vida mi amorchito"
+
+Prometo cuidar de ti con paciencia y ternura. Prometo elegirte cada día.
+Mi amor, eres mi presente más bonito y mi futuro favorito.
+
+Con todo mi amor.`;
+
+    let i=0, playing=false, raf;
+    const box = document.getElementById('type');
+    const cursor = document.createElement('span');
+    cursor.className='cursor'; cursor.textContent='\u00A0';
+
+    function type(){
+      if(!playing) return;
+      const step = 2 + Math.floor(Math.random()*3);
+      i = Math.min(texto.length, i+step);
+      box.textContent = texto.slice(0,i);
+      box.appendChild(cursor);
+      if(i < texto.length) {
+        raf = setTimeout(type, 40 + Math.random()*120);
+      }
+    }
+
+    function play(){ if(playing) return; playing = true; type(); try{ document.getElementById('bgm').play().catch(()=>{});}catch(e){} }
+    function pause(){ playing=false; clearTimeout(raf); try{ document.getElementById('bgm').pause(); }catch(e){} }
+
+    document.getElementById('btnPlay').addEventListener('click', play);
+    document.getElementById('btnPause').addEventListener('click', pause);
+
+    // Modal sorpresa con frases exactas
+    const modal = document.getElementById('modal');
+    const btnSurprise = document.getElementById('btnSurprise');
+    const closeModal = document.getElementById('closeModal');
+    btnSurprise.addEventListener('click', ()=>{ modal.classList.add('active'); confettiBurst(); });
+    closeModal.addEventListener('click', ()=> modal.classList.remove('active'));
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('active'); });
+
+    // Confeti simple en canvas
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let confs=[]; let confettiTimer;
+    function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function makeConfetti(n=180){
+      const colors=['#ff5c8a','#ffd166','#7a4cff','#2ee6a6','#ff8a00','#ffffff'];
+      confs = Array.from({length:n}, ()=>({
+        x: Math.random()*canvas.width,
+        y: -10 - Math.random()*canvas.height,
+        w: 6+Math.random()*6,
+        h: 8+Math.random()*10,
+        r: Math.random()*Math.PI,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        sp: 1.2+Math.random()*2.2,
+        sw: -1 + Math.random()*2
+      }));
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      confs.forEach(c=>{
+        ctx.save();
+        ctx.translate(c.x, c.y);
+        ctx.rotate(c.r);
+        ctx.fillStyle=c.color;
+        ctx.fillRect(-c.w/2, -c.h/2, c.w, c.h);
+        ctx.restore();
+        c.y += c.sp;
+        c.x += c.sw;
+        c.r += 0.02*(c.sw>0?1:-1);
+      });
+    }
+
+    function tick(){ draw(); confettiTimer = requestAnimationFrame(tick); }
+    function confettiBurst(){ makeConfetti(); cancelAnimationFrame(confettiTimer); tick(); setTimeout(()=>cancelAnimationFrame(confettiTimer), 5000); }
+
+    // Autoplay suave para mostrar algo al cargar
+    setTimeout(play, 800);
+  </script>
+</body>
+</html>
